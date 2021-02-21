@@ -1,3 +1,6 @@
+from wrappers.operations import reshape1x150str
+from fire.account import updateAccount
+from wrappers.operations import opAnalyze, opMatch
 from fire.account import verifyAccount
 import sys
 import argparse
@@ -34,16 +37,29 @@ result = {
 }
 def error_return(msg):
     result['state'] = 'failed'
-    result['message'] = 'Unable to verify user info'
+    result['message'] = msg
     print(json.dumps(result))
     exit(-1)
 
 # check and parse user data from server
-user_data = verifyAccount(email=email, uid=uid)
-if not user_data: error_return('Unable to verify user info')
-# do the operation
+if not verifyAccount(email=email, uid=uid): error_return('Unable to verify user info')
 
-# write back to the server
+# do the operation
+if operation == 'analyze' or operation == 'both':
+    passed, feature = opAnalyze(email=email)
+    if not passed: error_return("Unable to get embeddings")
+    data = reshape1x150str(feature)
+
+    if not updateAccount(email, {'embeddings': data}):
+        error_return("Unable to save embeddings")
+
+if operation == 'match' or operation == 'both':
+    passed, matchedUsers = opMatch(email=email)
+    if not passed: error_return("Unable to perform matching")
+
+    if not updateAccount(email, {'matched': [matchedUsers['email']]}):
+        error_return("Unable to save matched users")
+    
 
 # print out 
 print("DONE")
