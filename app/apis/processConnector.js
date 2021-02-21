@@ -21,11 +21,11 @@ module.exports.testProc = () => {
 
 module.exports.matchProc = async (email, uid, policy) => {
     console.log("Start match")
-    const child = spawn(setup.pythonPath, ['./algorithms/app.py', email, uid, policy])
+    const child = spawn(setup.pythonPath, ['./algorithms/app.py', email, uid, ...(policy.split(' '))])
     let output = ''
 
     for await (const data of child.stdout) {
-      console.log(`child stdout:\n${data}`);
+      // console.log(`child stdout:\n${data}`);
       if (data.includes('matched uid')) output = data
     }
 

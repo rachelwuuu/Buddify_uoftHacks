@@ -5,20 +5,22 @@ const { testProc, matchProc } = require("./processConnector");
 const users = db.collection("users");
 
 module.exports.accountVerify = async (email, uid) => {
+  console.log(`Verify account for ${email}`);
   const snapshot = await users.get();
   let pass = false;
   // idToken comes from the client app
   try {
+    await 
     admin
       .auth()
       .verifyIdToken(uid)
       .then((decodedToken) => {
         const actural_uid = decodedToken.uid;
 
-        console.log(email, "=>", uid);
         snapshot.forEach((doc) => {
           if (doc.id == email && doc.data().uid == actural_uid) {
             pass = uid;
+            return pass
           }
         });
       })
@@ -40,8 +42,9 @@ module.exports.accountVerify = async (email, uid) => {
 module.exports.accountInfo = async (email, uid, verify = true) => {
   if (email && verify) {
     uid = await this.accountVerify(email, uid);
-    if (!email || !uid) return [];
+    if (!email || uid == false) return [];
   }
+  console.log(`Fetch accountInfo for ${email}`);
 
   const snapshot = await users.get();
   let accounts = [];
@@ -83,21 +86,23 @@ module.exports.accountInfo = async (email, uid, verify = true) => {
 module.exports.accountUpdate = async (email, uid, intro) => {
   uid = await this.accountVerify(email, uid);
   if (!email || !uid) return [];
+  console.log(`Update account intro for ${email}`);
+  const oldIntro = await (await users.doc(email).get()).data().intro;
+  intro = _.merge({}, oldIntro, intro)
   const doc = await users.doc(email).set({ intro }, { merge: true });
-  matchProc(email, uid, `-O analyze`); // ignore the result
+  console.log(`updated Intro`);
+  console.log(intro);
+  matchProc(email, uid, '-O analyze'); // ignore the result
   return this.accountInfo(email, uid);
 };
 
 module.exports.accountAddFriend = async (email, uid, friendEmail) => {
   uid = await this.accountVerify(email, uid);
   if (!email || !uid) return [];
+  console.log(`Add account friend ${friendEmail} for ${email}`);
   const doc = (await users.doc(email).get()).data();
   const oldFriends = doc.friends || [];
   const friends = _.uniqBy([...oldFriends, friendEmail], (v) => v);
-
-  console.log(doc.friends);
-  console.log(`oldFriends: ${oldFriends}`);
-  console.log(`friends: ${friends}`);
 
   await users.doc(email).set({ friends }, { merge: true });
 
@@ -107,7 +112,7 @@ module.exports.accountAddFriend = async (email, uid, friendEmail) => {
 module.exports.accountMatch = async (email, uid, policy) => {
   uid = await this.accountVerify(email, uid);
   if (!email || !uid) return [];
-  // TODO testing
+  console.log(`Match account for ${email}`);
   // console.log("Run test proc");
   await matchProc(email, uid, `-P ${policy || JSON.stringify({ policy: "None" })} -O match`)
   doc = await users.doc(email).get();
