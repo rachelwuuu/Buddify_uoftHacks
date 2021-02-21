@@ -108,18 +108,18 @@ module.exports.accountMatch = async (email, uid, policy) => {
   uid = await this.accountVerify(email, uid);
   if (!email || !uid) return [];
   // TODO testing
-  console.log("Run test proc");
-  // await matchProc(email, uid, `-P ${policy || JSON.stringify({ policy: "None" })} -O match`)
+  // console.log("Run test proc");
+  await matchProc(email, uid, `-P ${policy || JSON.stringify({ policy: "None" })} -O match`)
   doc = await users.doc(email).get();
 
   let accounts = [];
 
   const data = doc.data();
   for (const email of data.matched) {
-    console.log(email);
+    // console.log(email);
     const account = await this.accountInfo(email, "", false)
     accounts.push(account);
-    console.log(accounts)
+    // console.log(accounts)
   }
   return {'matched': accounts};
 };
