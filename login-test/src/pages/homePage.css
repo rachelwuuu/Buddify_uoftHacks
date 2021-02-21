@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+.homePage{
+    padding:0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    text-align: vertical;
+    background-color: rgb(252, 247, 248);
+}
+.welcomeInfo{
+    
+    display: block;
+    font-family: 'Playfair Display', serif;
+        font-size:70px;
+    text-align: center;
+    align-items: center;
+}
+#mainPic{
+    position: absolute;
+    box-shadow: 2px 2px 18px purple;
+    margin-left: 680px;
+    width: 150px;
+    height: 150px;
+}
+
+.p{
+    margin: 0;
+    padding:0;
+}
+.personalInfo{
+    margin: 200px;
+    padding: 50px;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgb(147, 167, 145);
+    height: fit-content;
+    width: 250px;
+    transform-style: preserve-3d;
+    transition: transform 2s;
+    margin: 20px;
+}
+.img{
+    filter: drop-shadow(0px 0px 10px black);
+}
+/*
+.cover{
+    position: absolute;
+    background-color:rgb(218, 129, 153);
+    height: 400px;
+    width: 200px;
+    transition: all 0.5s ease;
+    backface-visibility: hidden;
+}
+.back{
+    position: absolute;
+    display: flex;
+    height: 400px;
+    width: 200px;
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+}
+*/
+.personalInfo:hover{
+    box-shadow: 10px 10px 20px black;
+    transition: all 1s ease;
+}
+
+.friend{
+    margin: 200px;
+    padding: 50px;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgb(147, 167, 145);
+    height: 550px;
+    width: 250px;
+    transform-style: preserve-3d;
+    transition: transform 2s;
+    margin: 20px;
+}
+
+.friend:hover{
+    box-shadow: 10px 10px 20px black;
+    transition: all 1s ease;
+}
+.friendAvator{
+    position: absolute;
+    margin-left: 680px;
+    width: 100px;
+    height: 100px;
+}
+.friends{
+    margin-top: 100px;
+    padding: 50px;
+    height: 900px;
+    display:flex;
+    flex-direction: row;
+    align-content: center;
+    font-size: 18px;
+}
