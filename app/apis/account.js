@@ -38,7 +38,7 @@ module.exports.accountVerify = async (email, uid) => {
 };
 
 module.exports.accountInfo = async (email, uid, verify = true) => {
-  if (verify) {
+  if (email && verify) {
     uid = await this.accountVerify(email, uid);
     if (!email || !uid) return [];
   }
