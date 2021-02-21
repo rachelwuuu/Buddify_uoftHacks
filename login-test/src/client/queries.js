@@ -121,33 +121,3 @@ export const Q_MATCH = gql`
     }
   }
 `;
-
-export const queryMatch = (callback) => {
-  const { email, idToken } = getAccount();
-  client
-    .query({
-      query: gql`
-        query Match {
-            userMatch(email: "${email}", uid: "${idToken}") {
-                matched {
-                    email
-                    name
-                    avatar
-                    intro {
-                        headline
-                        countryRegion
-                        homeCountryRegion
-                        locationCity
-                        contactInfo
-                        about
-                    }
-                }
-            } 
-        }
-      `,
-    })
-    .then((result) => {
-      console.log(result);
-      if (callback) callback(result);
-    });
-};

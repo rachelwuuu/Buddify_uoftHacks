@@ -126,5 +126,36 @@ module.exports.accountMatch = async (email, uid, policy) => {
     accounts.push(account);
     // console.log(accounts)
   }
-  return {'matched': accounts};
+  if (accounts.length > 0)
+    return {'matched': accounts};
+  else
+    return {'matched': []}
 };
+
+var uuid = require('uuid');
+const randomAccount = (n=10) => {
+  var {names, abouts, countrieRegions, cities} = require('./fake')
+  for (let i = 0; i < n; i++) {
+    let name = names[i]
+    let email = name.replace(' ', '.') + Math.floor(Math.random() * 3000 + 1) + '@gmail.com'
+    let country = countrieRegions[Math.floor(Math.random() * (countrieRegions.length))].name
+    let sameCountry = Math.random() < 0.75
+    let sameCity = Math.random() < 0.6
+    let account = {
+      avatar: `https://i.pravatar.cc/150?img=${i}`,
+      email,
+      name,
+      uid: uuid.v4(),
+      intro: {
+        about: abouts[i % abouts.length],
+        contactInfo: '+1 ' + Math.floor(Math.random() * 800 + 111) + "-" + Math.floor(Math.random() * 800 + 111) + "-" + Math.floor(Math.random() * 8000 + 1131),
+        countryRegion: country,
+        homeCountryRegion: sameCountry ? country : countrieRegions[Math.floor(Math.random() * (countrieRegions.length))].name,
+        locationCity: sameCity ? " Toronto" : cities[Math.floor(Math.random() * cities.length)][0],
+        headline: ['1st year', '2nd year', '3rd year', '4th year', 'intern'][Math.floor(Math.random() * 5)] + ' ' + ['ECE', 'CS', 'SE', 'CE', 'Bio', 'Physics', 'Math', 'Economics', 'IT', 'Management', 'Accounting'][Math.floor(Math.random() * 11)] + ' Student'
+      }
+    }
+    console.log(account);
+    const doc = users.doc(email).set(account, { merge: true });
+  }
+}

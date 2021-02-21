@@ -16,6 +16,7 @@
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.4",
     "lodash": "^4.17.20",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "uuid": "^8.3.2"
   }
 }
