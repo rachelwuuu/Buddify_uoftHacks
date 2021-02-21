@@ -20,7 +20,7 @@ module.exports.testProc = () => {
 };
 
 module.exports.matchProc = async (email, uid, policy) => {
-    console.log("Start match")
+    console.log(`Start match ${setup.pythonPath} ${['./algorithms/app.py', email, uid, ...(policy.split(' '))]}`)
     const child = spawn(setup.pythonPath, ['./algorithms/app.py', email, uid, ...(policy.split(' '))])
     let output = ''
 

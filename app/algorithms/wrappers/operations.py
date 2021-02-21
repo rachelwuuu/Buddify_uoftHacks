@@ -72,3 +72,16 @@ def opMatch(email):
         
     return False, []
 
+# from fire.account import updateAccount
+
+# all_users = getAccount()
+# for user in all_users:
+#     email = user['email']
+#     print(f'Analyze {email}')
+#     passed, feature = opAnalyze(email=email)
+#     # if not passed: error_return("Unable to get embeddings")
+#     data = reshape1x150str(feature)
+
+#     if not updateAccount(email, {'embeddings': data}):
+#         # error_return("Unable to save embeddings")
+#         pass

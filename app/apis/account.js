@@ -19,7 +19,7 @@ module.exports.accountVerify = async (email, uid) => {
 
         snapshot.forEach((doc) => {
           if (doc.id == email && doc.data().uid == actural_uid) {
-            pass = uid;
+            pass = actural_uid;
             return pass
           }
         });
@@ -121,7 +121,7 @@ module.exports.accountMatch = async (email, uid, policy) => {
 
   const data = doc.data();
   for (const email of data.matched) {
-    // console.log(email);
+    console.log(`Find match ${email}`);
     const account = await this.accountInfo(email, "", false)
     accounts.push(account);
     // console.log(accounts)

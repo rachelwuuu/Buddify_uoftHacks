@@ -143,7 +143,7 @@ def find_matching(data: np.ndarray, uids: np.ndarray, cur_id: str):
 
     uid_rp = np.repeat(uids, 3)
 
-    clusterer = hdbscan.HDBSCAN(min_cluster_size=2)
+    clusterer = hdbscan.HDBSCAN(min_cluster_size=10)
     cluster_labels = clusterer.fit_predict(data)
 
     matched_grp = cluster_labels[uid_rp == cur_id]
