@@ -5,7 +5,7 @@ import styleSheet from './home.css';
 export default function MainPage() {
     let history = useHistory();
     return (
-        <div>
+        <div className="container">
         <h1 className="buddify">Buddify!</h1>
             <div className="content">
                 <h1>Find your next group of buddies.</h1>
