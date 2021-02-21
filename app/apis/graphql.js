@@ -20,7 +20,6 @@ const typeDefinition = `
       name: String
       avatar: String
       intro: Intro
-      MBTI: String
       friends: [User]
    }
 
@@ -35,6 +34,7 @@ const typeDefinition = `
       locationCity: String
       contactInfo: String
       about: String
+      MBTI: String
       interests: [String]
       experiences: [String]
    }

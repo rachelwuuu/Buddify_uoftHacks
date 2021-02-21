@@ -37,9 +37,11 @@ module.exports.accountVerify = async (email, uid) => {
   return pass;
 };
 
-module.exports.accountInfo = async (email, uid) => {
-  uid = await this.accountVerify(email, uid);
-  if (!email || !uid) return [];
+module.exports.accountInfo = async (email, uid, verify = true) => {
+  if (verify) {
+    uid = await this.accountVerify(email, uid);
+    if (!email || !uid) return [];
+  }
 
   const snapshot = await users.get();
   let accounts = [];
@@ -51,7 +53,6 @@ module.exports.accountInfo = async (email, uid) => {
       name: data.name,
       avatar: data.avatar,
       intro: data.intro,
-      MBIT: data.MBIT,
       friendList: data.friends,
     });
   });
@@ -83,7 +84,7 @@ module.exports.accountUpdate = async (email, uid, intro) => {
   uid = await this.accountVerify(email, uid);
   if (!email || !uid) return [];
   const doc = await users.doc(email).set({ intro }, { merge: true });
-  matchProc(email, uid, `-O analyze`);
+  matchProc(email, uid, `-O analyze`); // ignore the result
   return this.accountInfo(email, uid);
 };
 
@@ -108,9 +109,17 @@ module.exports.accountMatch = async (email, uid, policy) => {
   if (!email || !uid) return [];
   // TODO testing
   console.log("Run test proc");
-  matchProc(email, uid, `-P ${policy || JSON.stringify({ policy: "None" })}`);
-  return {
-    keywords: ["test"],
-    matched: [this.accountInfo(email, uid)],
-  };
+  // await matchProc(email, uid, `-P ${policy || JSON.stringify({ policy: "None" })} -O match`)
+  doc = await users.doc(email).get();
+
+  let accounts = [];
+
+  const data = doc.data();
+  for (const email of data.matched) {
+    console.log(email);
+    const account = await this.accountInfo(email, "", false)
+    accounts.push(account);
+    console.log(accounts)
+  }
+  return {'matched': accounts};
 };
