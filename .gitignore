@@ -111,3 +111,6 @@ api_key
 
 secret*
 deploy*
+dataset
+model_ckpt
+.DS_Store
