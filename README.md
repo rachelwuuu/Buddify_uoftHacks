@@ -31,5 +31,5 @@ Our team learned how to use a react front end and integrate with a python backen
 - Allow users to send private messages to each other
 - Allow users to make a community and share stories
 
-[Devpost](https://devpost.com/software/buddify)
+[Devpost](https://devpost.com/software/buddify)  
 [Demo](http://Buddify.online)
