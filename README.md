@@ -6,6 +6,12 @@ Have you had the experience of sitting at home feeling lonely?
 The COVID-19 pandemic has forced a massive number of people into work-from-home scenarios. Many of us may have already got used to virtual offices and classrooms. Sometimes, our remote lifestyle makes our lives easier; however, there is one crucial part that is extremely difficult to replace: friendship.
 In fact, studies have shown 4 in 10 adults in the U.S. have reported symptoms of anxiety or depressive disorder during the pandemic. Friendship can enrich your mental health! How to make friends remotely? Buddify is here to connect people and build friendships.
 
+## Video Introduction & Demo
+[![Video Introduction](http://img.youtube.com/vi/DsuErJhkpxY/0.jpg)](http://www.youtube.com/watch?v=DsuErJhkpxY "Buddify - UofTHacks Project")
+
+# UI Images
+![UI](https://challengepost-s3-challengepost.netdna-ssl.com/photos/production/software_photos/001/405/759/datas/original.png)
+
 ## What it does
 Buddify is designed to help people make friends and connect with new people. Upon registration, the user is asked to provide some basic information, such as the current city, the home country, and a short introduction of himself / herself. Our machine learning algorithm will try to understand what the person is interested in by extracting keywords from the inputs and store them into the database. At the same time. the user can choose to answer some survey questions where another machine learning model will classify the user’s personality into one of the sixteen categories of MBTI according to their answers. The matching algorithm utilizes both the personality and interests information for finding another person with common interests. The user could choose to connect with the matched person and make friends.
 
